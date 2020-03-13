@@ -1,0 +1,59 @@
+﻿@model IEnumerable<KSA.LinkedAcademia.Models.Student>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsTeacher)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsTeacher)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new {  id=item.ID }) |
+                @Html.ActionLink("Details", "Details", new {  id=item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
