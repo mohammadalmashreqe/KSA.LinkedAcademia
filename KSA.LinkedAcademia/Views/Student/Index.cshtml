@@ -24,9 +24,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Lname)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsTeacher)
-            </th>
+           
             <th></th>
         </tr>
     </thead>
@@ -45,9 +43,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Lname)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsTeacher)
-            </td>
+            
             <td>
                 @Html.ActionLink("Edit", "Edit", new {  id=item.ID }) |
                 @Html.ActionLink("Details", "Details", new {  id=item.ID }) |

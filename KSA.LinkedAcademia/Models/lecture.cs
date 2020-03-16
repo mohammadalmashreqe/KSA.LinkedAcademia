@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace KSA.LinkedAcademia.Models
 {
-    public class Class
+    public class Lecture
     {
         public int Id { set; get; }
         public Student Creator { set; get; }

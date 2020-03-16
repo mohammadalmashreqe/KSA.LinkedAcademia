@@ -10,9 +10,17 @@ namespace KSA.LinkedAcademia.Controllers
 {
     public class HomeController : Controller
     {
+        public static List<University> u = new List<University>();
+
+        static HomeController()
+        {
+            u.Add(new University { Id = 1, Name = "King Khalid Universty"});
+            u.Add(new University { Id = 2, Name = "Princess Noora Universty"});
+            u.Add(new University { Id = 3, Name = "King Abdulaziz University" });
+        }
         public IActionResult Index()
         {
-            return View();
+            return View(u);
         }
 
         public IActionResult About()
