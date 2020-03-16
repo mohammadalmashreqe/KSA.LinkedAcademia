@@ -12,5 +12,6 @@ namespace KSA.LinkedAcademia.Models
         public string Fname { set; get; }
         public string Lname { set; get; }
         public University university { set; get; }
+        public bool IsTeacher { set; get; }
     }
 }
