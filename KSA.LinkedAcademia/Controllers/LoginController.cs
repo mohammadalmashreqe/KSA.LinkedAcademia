@@ -2,42 +2,32 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using KSA.LinkedAcademia.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KSA.LinkedAcademia.Controllers
 {
-    public class StudentController : Controller
+    public class LoginController : Controller
     {
-        public static List<Student> s = new List<Student>();
-
-        static StudentController()
-        {
-            s.Add(new Student { ID = 1, Email = "mm@y.com", Fname = "motaz", Lname = "Gahr"});
-            s.Add(new Student { ID = 2, Email = "mm@y.com", Fname = "motaz", Lname = "Gahr"});
-        }
-
-        // GET: Student
+        // GET: Login
         public ActionResult Index()
         {
-            return View(s);
+            return View();
         }
 
-        // GET: Student/Details/5
+        // GET: Login/Details/5
         public ActionResult Details(int id)
         {
-            Student r = s.Select(x => x).Where(y => y.ID == id).FirstOrDefault();
-            return View(r);
+            return View();
         }
 
-        // GET: Student/Create
+        // GET: Login/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Student/Create
+        // POST: Login/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -54,25 +44,21 @@ namespace KSA.LinkedAcademia.Controllers
             }
         }
 
-        // GET: Student/Edit/5
+        // GET: Login/Edit/5
         public ActionResult Edit(int id)
         {
-            Student r = s.Select(x => x).Where(y => y.ID == id).FirstOrDefault();
-            return View(r);
+            return View();
         }
 
-        // POST: Student/Edit/5
+        // POST: Login/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, Student collection)
+        public ActionResult Edit(int id, IFormCollection collection)
         {
             try
             {
                 // TODO: Add update logic here
-                Student r = s.Select(x => x).Where(y => y.ID == id).FirstOrDefault();
-                r.ID = collection.ID;
-                r.Fname = collection.Fname;
-                //*****************
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -81,22 +67,21 @@ namespace KSA.LinkedAcademia.Controllers
             }
         }
 
-        // GET: Student/Delete/5
+        // GET: Login/Delete/5
         public ActionResult Delete(int id)
         {
-            Student r = s.Select(x => x).Where(y => y.ID == id).FirstOrDefault();
-            return View(r);
+            return View();
         }
 
-        // POST: Student/Delete/5
+        // POST: Login/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, Student collection)
+        public ActionResult Delete(int id, IFormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
-                s.Remove(s.Select(x => x).Where(y => y.ID == id).FirstOrDefault());
+
                 return RedirectToAction(nameof(Index));
             }
             catch
