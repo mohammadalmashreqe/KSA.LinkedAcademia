@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace KSA.LinkedAcademia.Models
 {
-    public class Student
+    public partial class Student
     {
-        public int ID { get; set; }
-        public string Email { set; get; }
-        public string Fname { set; get; }
-        public string Lname { set; get; }
-        public University university { set; get; }
+        public int Id { get; set; }
+        public string Email { get; set; }
+        public string Fname { get; set; }
+        public string Lname { get; set; }
+        public int? UniversityId { get; set; }
+        public int? ClassId { get; set; }
+        public string Password { get; set; }
+        public string Mobile { get; set; }
+
+        public University University { get; set; }
     }
 }

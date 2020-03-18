@@ -16,6 +16,7 @@ namespace KSA.LinkedAcademia.Models
         [DataType(DataType.Password)]
         public string Password { set; get; }
 
-            
+
+
     }
 }
