@@ -40,7 +40,7 @@ namespace KSA.LinkedAcademia.Controllers
             {
                 return View("Login");
             }
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Index", "Home");
         }
         [HttpPost]
         public async Task<ActionResult> Registar(RegistrationViewModel model)
