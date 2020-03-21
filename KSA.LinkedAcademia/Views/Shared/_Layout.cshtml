@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -34,6 +36,25 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>
+                <ul class="nav navbar-nav navbar-right">
+
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("userId") != null)
+                    {
+                        <li> <a> Hello @HttpContextAccessor.HttpContext.Session.GetString("userId")</a></li>
+                        <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
+
+                    }
+                    else
+                    {
+
+                        <li><a asp-area="" asp-controller="Account" asp-action="Index">Login</a></li>
+                        <li><a asp-area="" asp-controller="Account" asp-action="Registration">SignUp</a></li>
+                    }
+                </ul>
+
+
+
+
             </div>
         </div>
     </nav>

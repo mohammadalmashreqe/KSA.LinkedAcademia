@@ -74,5 +74,11 @@ namespace KSA.LinkedAcademia.Controllers
 
             return View();
         }
+
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return View("Login");
+        }
     }
 }
