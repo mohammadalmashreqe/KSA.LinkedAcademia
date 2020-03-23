@@ -15,6 +15,7 @@ namespace KSA.LinkedAcademia.Models
         {
         }
 
+        public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Class> Class { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<University> University { get; set; }
@@ -30,6 +31,17 @@ namespace KSA.LinkedAcademia.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Admin>(entity =>
+            {
+                entity.Property(e => e.Password)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.UserName)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+            });
+
             modelBuilder.Entity<Class>(entity =>
             {
                 entity.Property(e => e.Name).HasMaxLength(200);
