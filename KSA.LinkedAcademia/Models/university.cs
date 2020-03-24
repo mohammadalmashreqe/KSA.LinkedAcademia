@@ -13,6 +13,7 @@ namespace KSA.LinkedAcademia.Models
 
      
         public int Id { get; set; }
+        [Display (Name ="University Name")]
         public string Name { get; set; }
 
         public ICollection<Student> Student { get; set; }

@@ -42,6 +42,8 @@ namespace KSA.LinkedAcademia.Controllers
             }
             return RedirectToAction("Index", "Home");
         }
+
+
         [HttpPost]
         public async Task<ActionResult> Registar(RegistrationViewModel model)
         {
@@ -51,10 +53,11 @@ namespace KSA.LinkedAcademia.Controllers
                 Student user = new Student
                 {
                     Fname = model.FName,
-                    Lname=model.LName,
+                    Lname = model.LName,
                     Email = model.Email,
                     Password = model.Password,
-                    Mobile = model.Mobile
+                    Mobile = model.Mobile,
+                    UniversityId = model.UniversityID
 
                 };
                 _context.Add(user);
@@ -63,6 +66,8 @@ namespace KSA.LinkedAcademia.Controllers
             }
             else
             {
+                ViewBag.university = _context.University;
+
                 return View("Registration");
             }
             return RedirectToAction("Index", "Account");
@@ -71,6 +76,7 @@ namespace KSA.LinkedAcademia.Controllers
         public IActionResult Registration()
         {
             ViewData["Message"] = "Registration Page";
+            ViewBag.university = _context.University;
 
             return View();
         }

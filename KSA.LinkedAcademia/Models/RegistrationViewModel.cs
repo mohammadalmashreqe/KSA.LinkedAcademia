@@ -31,5 +31,6 @@ namespace KSA.LinkedAcademia.Models
         [NotMapped] // Does not effect with your database
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
+        public int UniversityID { set; get;  }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace KSA.LinkedAcademia.Models
 {
@@ -7,7 +8,11 @@ namespace KSA.LinkedAcademia.Models
     {
         public int Id { get; set; }
         public string Email { get; set; }
+
+        [Display(Name = "First Name")]
+
         public string Fname { get; set; }
+        [Display(Name = "Last Name")]
         public string Lname { get; set; }
         public int? UniversityId { get; set; }
         public int? ClassId { get; set; }
