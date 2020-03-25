@@ -33,14 +33,17 @@ namespace KSA.LinkedAcademia.Controllers
                     ModelState.AddModelError("Password", "Invalid login attempt.");
                     return View("Login");
                 }
-                HttpContext.Session.SetString("userId", userdetails.Fname);
+                HttpContext.Session.SetString("StudentName", userdetails.Fname);
+                HttpContext.Session.SetInt32("userId",userdetails.Id);
+                HttpContext.Session.SetString("universityId", userdetails.UniversityId+"");
+
 
             }
             else
             {
                 return View("Login");
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Home", "Student");
         }
 
 

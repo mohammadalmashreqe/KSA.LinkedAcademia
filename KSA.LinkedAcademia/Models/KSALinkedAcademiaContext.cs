@@ -17,6 +17,7 @@ namespace KSA.LinkedAcademia.Models
 
         public virtual DbSet<Admin> Admin { get; set; }
         public virtual DbSet<Class> Class { get; set; }
+        public virtual DbSet<ClassStudents> ClassStudents { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<University> University { get; set; }
 
@@ -45,6 +46,33 @@ namespace KSA.LinkedAcademia.Models
             modelBuilder.Entity<Class>(entity =>
             {
                 entity.Property(e => e.Name).HasMaxLength(200);
+
+                entity.HasOne(d => d.Creator)
+                    .WithMany(p => p.Class)
+                    .HasForeignKey(d => d.CreatorId)
+                    .HasConstraintName("FK_Class_Student");
+
+                entity.HasOne(d => d.Univirsety)
+                    .WithMany(p => p.Class)
+                    .HasForeignKey(d => d.UnivirsetyId)
+                    .HasConstraintName("FK_Class_University");
+            });
+
+            modelBuilder.Entity<ClassStudents>(entity =>
+            {
+                entity.Property(e => e.CreationDate).HasColumnType("datetime");
+
+                entity.Property(e => e.StudentId).HasColumnName("StudentID");
+
+                entity.HasOne(d => d.Class)
+                    .WithMany(p => p.ClassStudents)
+                    .HasForeignKey(d => d.ClassId)
+                    .HasConstraintName("FK_ClassStudents_ClassStudents");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.ClassStudents)
+                    .HasForeignKey(d => d.StudentId)
+                    .HasConstraintName("FK_ClassStudents_Student");
             });
 
             modelBuilder.Entity<Student>(entity =>

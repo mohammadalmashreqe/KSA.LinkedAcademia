@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 
 namespace KSA.LinkedAcademia.Models
 {
@@ -8,14 +7,14 @@ namespace KSA.LinkedAcademia.Models
     {
         public University()
         {
+            Class = new HashSet<Class>();
             Student = new HashSet<Student>();
         }
 
-     
         public int Id { get; set; }
-        [Display (Name ="University Name")]
         public string Name { get; set; }
 
+        public ICollection<Class> Class { get; set; }
         public ICollection<Student> Student { get; set; }
     }
 }

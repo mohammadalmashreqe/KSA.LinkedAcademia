@@ -38,9 +38,9 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
 
-                    @if (HttpContextAccessor.HttpContext.Session.GetString("userId") != null)
+                    @if (HttpContextAccessor.HttpContext.Session.GetString("StudentName") != null)
                     {
-                        <li> <a> Hello @HttpContextAccessor.HttpContext.Session.GetString("userId")</a></li>
+                        <li> <a> Hello @HttpContextAccessor.HttpContext.Session.GetString("StudentName")</a></li>
                         <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
 
                     }

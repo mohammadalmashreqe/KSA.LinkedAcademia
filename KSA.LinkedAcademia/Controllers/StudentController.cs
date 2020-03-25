@@ -101,5 +101,17 @@ namespace KSA.LinkedAcademia.Controllers
                 return View();
             }
         }
+        public ActionResult Home()
+        {
+            int? id=HttpContext.Session.GetInt32("userId");
+            if(id!=null)
+            {
+              var student=  _context.Student.Select(x => x).Where(x => x.Id == id).FirstOrDefault();
+                return View(student);
+            }
+
+            return View("Error");
+        }
+
     }
 }
