@@ -60,8 +60,6 @@ namespace KSA.LinkedAcademia.Models
 
             modelBuilder.Entity<ClassStudents>(entity =>
             {
-                entity.Property(e => e.CreationDate).HasColumnType("datetime");
-
                 entity.Property(e => e.StudentId).HasColumnName("StudentID");
 
                 entity.HasOne(d => d.Class)

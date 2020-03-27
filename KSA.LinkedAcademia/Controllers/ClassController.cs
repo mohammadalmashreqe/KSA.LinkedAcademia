@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using KSA.LinkedAcademia.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KSA.LinkedAcademia.Controllers
 {
@@ -19,16 +20,14 @@ namespace KSA.LinkedAcademia.Controllers
         // GET: Class
         public ActionResult Index()
         {
-            return View();
-        }
+          int unid= int.Parse( HttpContext.Session.GetString("universityId"));
+            var cls = _context.Class.Include(d => d.Univirsety).Include(x=>x.Creator).Where(x=>x.UnivirsetyId==unid);
 
-        // GET: Class/Details/5
-        public ActionResult Details(int id)
-        {
-            var cls = _context.Class.Select(x => x).Where(x => x.Id == id).FirstOrDefault();
+
+            
             return View(cls);
         }
-
+        
         // GET: Class/Create
         public ActionResult Create()
         {
@@ -77,28 +76,10 @@ namespace KSA.LinkedAcademia.Controllers
         }
 
 
-        // GET: Class/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+        
+ 
 
-        // POST: Class/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+   
 
         // GET: Class/Delete/5
         public ActionResult Delete(int id)

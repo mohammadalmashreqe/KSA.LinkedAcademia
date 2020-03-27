@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using KSA.LinkedAcademia.Hubs;
 
 namespace KSA.LinkedAcademia
 {
@@ -26,6 +27,7 @@ namespace KSA.LinkedAcademia
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                
@@ -38,6 +40,7 @@ namespace KSA.LinkedAcademia
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddSession();
+            services.AddSignalR();
 
             services.AddSession(options =>
             {
@@ -61,18 +64,25 @@ namespace KSA.LinkedAcademia
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
-       
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<ChatHub>("/chatHub");
+            });
+
             app.UseSession();
             app.UseMvc(routes =>
             {
+                
                 routes.MapRoute(
                     name: "default",
+                    
                     template: "{controller=Account}/{action=Index}/{id?}");
             });
+         
+
         }
     }
 }
