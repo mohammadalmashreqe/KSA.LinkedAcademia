@@ -26,24 +26,22 @@ namespace KSA.LinkedAcademia.Controllers
 
             int uid = HttpContext.Session.GetInt32("userId").Value;
 
-            var r= _context.ClassStudents.Select(x => x).Where(x => x.ClassId == id && x.StudentId == uid).FirstOrDefault();
+            var r = _context.ClassStudents.Select(x => x).Where(x => x.ClassId == id && x.StudentId == uid).FirstOrDefault();
+
+            ClassStudents classStudents = new ClassStudents
+            {
+                ClassId = id,
+                StudentId = uid
+            };
             if (r == null)
             {
-                ClassStudents classStudents = new ClassStudents
-                {
-                    ClassId = id,
-                    StudentId = uid
-                };
                 _context.ClassStudents.Add(classStudents);
                 _context.SaveChanges();
                 ViewBag.classId = id;
-                return View();
             }
-            else
-            {
-                
-                return View("Error");
-            }
+            return View();
+            
+          
         }
 
         // GET: ClassStudents/Details/5
