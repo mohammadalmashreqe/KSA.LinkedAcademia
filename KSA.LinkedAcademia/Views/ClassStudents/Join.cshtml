@@ -1,48 +1,140 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+@model IEnumerable<KSA.LinkedAcademia.Models.Chat>
 @{
     ViewData["Title"] = "Join";
 }
 
+<style>
+    .chatcontainer {
+        border: 2px solid #dedede;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+        padding: 10px;
+        margin: 10px 0;
+    }
 
+    /* Darker chat container */
+    .darker {
+        border-color: #ccc;
+        background-color: #ddd;
+    }
+
+    .time-right {
+        float: right;
+        color: #aaa;
+    }
+</style>
 <h2>Join @ViewBag.classId</h2>
 
 
+@if (ViewBag.classId == null)
+{
+    ViewBag.classId = @HttpContextAccessor.HttpContext.Session.GetInt32("classid");
+}
 
+@if (ViewBag.userid == null)
+{
+
+
+    ViewBag.userId = @HttpContextAccessor.HttpContext.Session.GetInt32("userId");
+}
 <div class="container">
-    <div class="row">&nbsp;</div>
+    <ul id="messagesList" class="container">
+        @if (Model != null)
+        {
+
+
+            @foreach (var item in Model)
+            {
+
+
+                <li>
+                    <div class="chatcontainer darker">
+                        <p>@item.Message</p>
+                        <span class="time-right">@item.MessageDateTime.Value</span>
+                    </div>
+                </li>
+
+            }
+        }
+
+
+
+    </ul>
+
+
     <div class="row">
-        <div class="col-2">User</div>
-        <div class="col-4"><input type="text" id="userInput" /></div>
+
+        <input class="form-control col-md-10" type="text" id="messageInput" />
+
+        <input class="btn btn-default col-md-2" type="button" id="sendButton" value="Send Message" />
+
     </div>
-    <div class="row">
-        <div class="col-2">Message</div>
-        <div class="col-4"><input type="text" id="messageInput" /></div>
-    </div>
-    <div class="row">&nbsp;</div>
-    <div class="row">
-        <div class="col-6">
-            <input type="button" id="sendButton" value="Send Message" />
-        </div>
-    </div>
+
+
+
+
 </div>
-<div class="row">
-    <div class="col-12">
-        <hr />
-    </div>
-</div>
-<div class="row">
-    <div class="col-6">
-        <ul id="messagesList"></ul>
-    </div>
-</div>
+
+
+
+
+
 <script src="~/js/signalr/dist/browser/signalr.js"></script>
-<script src="~/js/chat.js"></script>
 
 
+<script>
 
+    "use strict";
 
+    var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
 
+    //Disable send button until connection is established
+    document.getElementById("sendButton").disabled = true;
 
+    connection.on("ReceiveMessage", function (user, message) {
+        var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        debugger;
+        if (user ==@ViewBag.classId) {
+            var encodedMsg = user + " says " + msg;
+
+            var today = new Date();
+            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+            var div = document.createElement("div");
+            div.setAttribute("class", "chatcontainer darker");
+            var p = document.createElement("p");
+            p.textContent = encodedMsg
+            var li = document.createElement("li");
+            var span = document.createElement("span");
+            span.setAttribute("class", "time-right");
+            span.textContent = date;
+            div.appendChild(p);
+            div.appendChild(span);
+            li.appendChild(div);
+            document.getElementById("messagesList").appendChild(li);
+        }
+    });
+
+    connection.start().then(function () {
+        document.getElementById("sendButton").disabled = false;
+    }).catch(function (err) {
+        return console.error(err.toString());
+    });
+
+    document.getElementById("sendButton").addEventListener("click", function (event) {
+        debugger;
+        var classId = @ViewBag.classId;
+        var studentId=@ViewBag.userid;
+        var message = document.getElementById("messageInput").value;
+        connection.invoke("SendMessage", classId, message, studentId).catch(function (err) {
+            return console.error(err.toString());
+        });
+        event.preventDefault();
+    });
+
+</script>
 
 
 

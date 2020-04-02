@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using KSA.LinkedAcademia.Models;
+using Microsoft.AspNetCore.SignalR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,28 @@ namespace KSA.LinkedAcademia.Hubs
 {
 
 
+
     public class ChatHub : Hub
     {
-        public async Task SendMessage(string user, string message)
+        private readonly KSALinkedAcademiaContext _context;
+
+        public ChatHub(KSALinkedAcademiaContext kSALinkedAcademiaContext)
         {
-            await Clients.All.SendAsync("ReceiveMessage", user, message);
+            _context = kSALinkedAcademiaContext;
+
+        }
+        public async Task SendMessage(int classID, string message,int studentId)
+        {
+            Chat chat = new Chat
+            {
+                ClassId = classID,
+                StudentId = studentId,
+                Message = message,
+                MessageDateTime = DateTime.Now
+            };
+            _context.Add(chat);
+            _context.SaveChanges();
+            await Clients.All.SendAsync("ReceiveMessage", classID, message);
         }
     }
 }

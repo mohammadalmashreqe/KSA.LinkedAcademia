@@ -37,9 +37,15 @@ namespace KSA.LinkedAcademia.Controllers
             {
                 _context.ClassStudents.Add(classStudents);
                 _context.SaveChanges();
-                ViewBag.classId = id;
             }
-            return View();
+            ViewBag.classId = id;
+
+            HttpContext.Session.SetInt32("classid", id);
+            var messages = from x in _context.Chat
+                           where x.ClassId == id
+                           select x; 
+
+            return View(messages);
             
           
         }

@@ -20,20 +20,17 @@ namespace KSA.LinkedAcademia.Controllers
         // GET: Class
         public ActionResult Index()
         {
-          int unid= int.Parse( HttpContext.Session.GetString("universityId"));
-            var cls = _context.Class.Include(d => d.Univirsety).Include(x=>x.Creator).Where(x=>x.UnivirsetyId==unid);
-
-
-            
+            int unid = int.Parse(HttpContext.Session.GetString("universityId"));
+            var cls = _context.Class.Include(d => d.Univirsety).Include(x => x.Creator).Where(x => x.UnivirsetyId == unid);
             return View(cls);
         }
-        
+
         // GET: Class/Create
         public ActionResult Create()
         {
-           int UNID=int.Parse( HttpContext.Session.GetString("universityId"));
+            int UNID = int.Parse(HttpContext.Session.GetString("universityId"));
             var un = _context.University.Select(x => x).Where(x => x.Id == UNID).FirstOrDefault();
-            ViewBag.UnivirsetyName =un.Name;
+            ViewBag.UnivirsetyName = un.Name;
             Class cls = new Class
             {
                 CreatorId = HttpContext.Session.GetInt32("userId"),
@@ -45,7 +42,7 @@ namespace KSA.LinkedAcademia.Controllers
         // POST: Class/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Class model,int CreatorId,int UnivirsetyId)
+        public ActionResult Create(Class model, int CreatorId, int UnivirsetyId)
         {
             try
             {
@@ -58,11 +55,11 @@ namespace KSA.LinkedAcademia.Controllers
                         UnivirsetyId = UnivirsetyId
 
                     };
-                   cls= _context.Add(cls).Entity;
+                    cls = _context.Add(cls).Entity;
                     _context.SaveChanges();
 
-               
-                    return RedirectToAction("details", new { id =cls.Id });
+
+                    return RedirectToAction("details", new { id = cls.Id });
                 }
                 else
                     return View("Error");
@@ -76,10 +73,10 @@ namespace KSA.LinkedAcademia.Controllers
         }
 
 
-        
- 
 
-   
+
+
+
 
         // GET: Class/Delete/5
         public ActionResult Delete(int id)

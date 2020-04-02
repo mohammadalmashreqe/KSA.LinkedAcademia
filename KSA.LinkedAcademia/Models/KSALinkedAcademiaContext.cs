@@ -16,6 +16,7 @@ namespace KSA.LinkedAcademia.Models
         }
 
         public virtual DbSet<Admin> Admin { get; set; }
+        public virtual DbSet<Chat> Chat { get; set; }
         public virtual DbSet<Class> Class { get; set; }
         public virtual DbSet<ClassStudents> ClassStudents { get; set; }
         public virtual DbSet<Student> Student { get; set; }
@@ -41,6 +42,11 @@ namespace KSA.LinkedAcademia.Models
                 entity.Property(e => e.UserName)
                     .HasMaxLength(50)
                     .IsUnicode(false);
+            });
+
+            modelBuilder.Entity<Chat>(entity =>
+            {
+                entity.Property(e => e.MessageDateTime).HasColumnType("datetime");
             });
 
             modelBuilder.Entity<Class>(entity =>
