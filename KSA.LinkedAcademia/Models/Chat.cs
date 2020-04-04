@@ -10,5 +10,6 @@ namespace KSA.LinkedAcademia.Models
         public int? ClassId { get; set; }
         public int? StudentId { get; set; }
         public DateTime? MessageDateTime { get; set; }
+        public string SenderName { get; set; }
     }
 }

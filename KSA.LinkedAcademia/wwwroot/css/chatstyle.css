@@ -1,0 +1,131 @@
+﻿body {
+    min-height: 100vh;
+    padding: 10px;
+}
+
+.chat-container {
+    height: 25rem;
+    min-height: 20rem;
+}
+
+@media (max-width: 575px) {
+    html {
+        font-size: 12px !important;
+    }
+
+    .d-xs-none {
+        display: none;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767px) {
+    html {
+        font-size: 16px !important;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    html {
+        font-size: 18px !important;
+    }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+    html {
+        font-size: 20px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    html {
+        font-size: 22px !important;
+    }
+}
+
+* {
+    border-radius: 0px !important;
+    border-collapse: collapse;
+    box-shadow: none !important;
+}
+
+.message-card {
+    max-width: 60%;
+}
+
+.bg-lightblue {
+    background-color: #7CC0FF;
+}
+
+.bg-darkblue {
+    background-color: #0E5EA9;
+}
+
+.bg-lightgrey {
+    background-color: #f1f1f1;
+}
+
+.search-input-h {
+    height: 10% !important;
+}
+
+.hover-color-darkblue:hover {
+    color: #0E5EA9 !important;
+}
+
+.hover-color-lightgray:hover {
+    color: #dcdcdc !important;
+}
+
+.hover-bg-lightgray:hover {
+    background-color: #dcdcdc !important;
+    cursor: pointer;
+}
+
+.active.hover-bg-lightgray:hover {
+    background-color: #0E5EA9 !important;
+    cursor: pointer;
+}
+
+.border-chat-lightgray {
+    border-style: solid;
+    border-width: 1px 0 1px 1px;
+    border-color: #dfdfdf !important;
+}
+
+.text-white {
+    color: white;
+}
+
+.message-scroll {
+    overflow-y: auto;
+}
+
+.sidebar-scroll {
+    overflow-y: auto;
+}
+
+#sidebar-content {
+    display: flex;
+    flex-direction: column;
+}
+
+#list-group {
+    flex: 1 1;
+}
+
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    background-image: -webkit-gradient(linear, left bottom, left top, from(#30cfd0), to(#330867));
+    background-image: -webkit-linear-gradient(bottom, #30cfd0 0%, #330867 100%);
+    background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);
+}

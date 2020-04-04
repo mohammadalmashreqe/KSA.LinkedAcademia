@@ -1,33 +1,26 @@
-﻿@using Microsoft.AspNetCore.Http
+﻿<!DOCTYPE html>
+
+<html>
+@using Microsoft.AspNetCore.Http
 @inject IHttpContextAccessor HttpContextAccessor
 @model IEnumerable<KSA.LinkedAcademia.Models.Chat>
 @{
+    Layout = null;
+}
+@{
     ViewData["Title"] = "Join";
 }
+@if (ViewBag.username == null)
+{
+    ViewBag.username= @HttpContextAccessor.HttpContext.Session.GetString("StudentName");
 
-<style>
-    .chatcontainer {
-        border: 2px solid #dedede;
-        background-color: #f1f1f1;
-        border-radius: 5px;
-        padding: 10px;
-        margin: 10px 0;
-    }
-
-    /* Darker chat container */
-    .darker {
-        border-color: #ccc;
-        background-color: #ddd;
-    }
-
-    .time-right {
-        float: right;
-        color: #aaa;
-    }
-</style>
-<h2>Join @ViewBag.classId</h2>
+}
+@if (ViewBag.classname == null)
+{
+    ViewBag.classname= @HttpContextAccessor.HttpContext.Session.GetString("ClassName");
 
 
+}
 @if (ViewBag.classId == null)
 {
     ViewBag.classId = @HttpContextAccessor.HttpContext.Session.GetInt32("classid");
@@ -39,80 +32,173 @@
 
     ViewBag.userId = @HttpContextAccessor.HttpContext.Session.GetInt32("userId");
 }
-<div class="container">
-    <ul id="messagesList" class="container">
-        @if (Model != null)
-        {
+
+<head>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link href="~/css/chatstyle.css" rel="stylesheet" />
+    <link href="~/css/all.min.css" rel="stylesheet" />
+    <script src="~/js/all.min.js"></script>
+    <script src="~/js/chatview.js"></script>
+    <link href="~/css/site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="~/js/jquery-3.4.1.min.js"></script>
+</head>
+<body>
 
 
-            @foreach (var item in Model)
-            {
 
 
-                <li>
-                    <div class="chatcontainer darker">
-                        <p>@item.Message</p>
-                        <span class="time-right">@item.MessageDateTime.Value</span>
+
+    <div class="container-fluid chat-container">
+        <div class="row h-100">
+            <div class="col-3 border-chat-lightgray px-0" id="sidebar">
+                <div id="sidebar-content" class="w-100 h-100">
+                    <div class="input-group p-0 d-xs-none" id="search-group">
+                        <input type="text" class="form-control border-0" placeholder="Search..." id="search">
+                        <span class="input-group-addon">
+                            <button class="btn border-0 bg-white text-primary hover-color-darkblue" type="button">
+                                <i class="fa fa-search fa-fw"></i>
+                            </button>
+                        </span>
                     </div>
-                </li>
+                    <div class="sidebar-scroll" id="list-group">
+                        @*file browser *@
+                        <ul class="list-group w-100" id="friend-list">
+                            <li class="list-group-item p-1 active hover-bg-lightgray">
+                                <img src="//placehold.it/50x50" class="rounded-circle">
+                                <span class="d-xs-none username">StanIsLove</span>
+                            </li>
 
-            }
-        }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col d-flex p-0" style="width:100%">
+                <div class="card" style="width:inherit">
+                    <div class="card-header  text-white py-1 px-2" style="flex: 1 1; background-color: #0E5EA9;">
+                        <div class="d-flex flex-row justify-content-start">
+                            <div class="col-1 p-1">
+                                <button class="btn text-white bg-darkblue p-0 hover-color-lightgray">
+                                    <i class="fas fa-bars fa-2x"></i>
+                                </button>
+                            </div>
+                            <div class="col">
+                                <div class="my-0">
+                                    <b>@ViewBag.classname</b>
+                                </div>
+                                <div class="my-0">
+                                    <small>@ViewBag.username</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body bg-lightgrey d-flex flex-column p-0" style="flex: 9 1">
+                        <div class="container-fluid message-scroll " style="flex: 1 1">
+                            <ul id="messagesList">
+                                @if (Model != null)
+                                {
 
 
+                                    @foreach (var item in Model)
+                                    {
+                                        @*message body*@
+                                        <li class="row">
+                                            <div class="card message-card m-1">
+                                                <div class="card body p-2">
+                                                    <small>@item.SenderName</small>
+                                                    <span class="mx-2">@item.Message</span>
+                                                    <span class="float-right mx-1"><small>@item.MessageDateTime.Value. <i class="fas fa-check fa-fw" style="color:#66a80f"></i></small></span>
+                                                </div>
+                                            </div>
+                                        </li>
 
-    </ul>
-
-
-    <div class="row">
-
-        <input class="form-control col-md-10" type="text" id="messageInput" />
-
-        <input class="btn btn-default col-md-2" type="button" id="sendButton" value="Send Message" />
-
+                                    }
+                                }
+                            </ul>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="messageInput" class="form-control border-0" placeholder="Input message...">
+                            <span class="input-group-addon">
+                                <button class="btn border-0 bg-white text-primary hover-color-darkblue" type="button" id="sendButton">
+                                    <i class="fab fa-telegram-plane fa-2x"></i>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- row -->
     </div>
 
 
-
-
-</div>
-
-
-
-
-
-<script src="~/js/signalr/dist/browser/signalr.js"></script>
-
+    <script src="~/js/signalr/dist/browser/signalr.js"></script>
+</body>
+</html>
 
 <script>
 
     "use strict";
 
     var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-
+    function formatAMPM(date) {
+        var hours = date.getHours();
+        var minutes = date.getMinutes();
+        var sec = date.getSeconds();
+        var ampm = hours >= 12 ? 'PM.' : 'AM.';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // the hour '0' should be '12'
+        minutes = minutes < 10 ? '0' + minutes : minutes;
+        var strTime = hours + ':' + minutes + ":" + sec+ ' ' + ampm;
+        return strTime;
+    }
     //Disable send button until connection is established
     document.getElementById("sendButton").disabled = true;
 
-    connection.on("ReceiveMessage", function (user, message) {
+    connection.on("ReceiveMessage", function (user, message,StudentName) {
         var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
         debugger;
         if (user ==@ViewBag.classId) {
-            var encodedMsg = user + " says " + msg;
+            var encodedMsg = msg;
 
             var today = new Date();
-            var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+            var time = formatAMPM(today);
+            var date = (today.getMonth() + 1) + '/' + today.getDate() + '/' + today.getFullYear() + " " + time;
 
-            var div = document.createElement("div");
-            div.setAttribute("class", "chatcontainer darker");
-            var p = document.createElement("p");
-            p.textContent = encodedMsg
-            var li = document.createElement("li");
+            var i = document.createElement("i");
+            i.setAttribute("class", "fas fa-check fa-fw");
+            i.setAttribute("style", "color:#66a80f");
+            var small = document.createElement("small");
+            small.textContent = date;
+            small.appendChild(i);
             var span = document.createElement("span");
-            span.setAttribute("class", "time-right");
-            span.textContent = date;
-            div.appendChild(p);
+            span.setAttribute("class", "float-right mx-1");
+            span.appendChild(small);
+
+            var span2 = document.createElement("span");
+            span2.setAttribute("class", "mx-2");
+            span2.textContent = encodedMsg;
+
+            var small2 = document.createElement("small");
+            small2.textContent = StudentName;
+            var div = document.createElement("div");
+            div.setAttribute("class", "card body p-2");
+            div.appendChild(small2);
+            div.appendChild(span2);
             div.appendChild(span);
-            li.appendChild(div);
+
+
+            var div2 = document.createElement("div");
+            div2.setAttribute("class", "card message-card m-1");
+
+            div2.appendChild(div);
+
+
+
+            var li = document.createElement("li");
+            li.setAttribute("class", "row");
+            li.appendChild(div2);
+
             document.getElementById("messagesList").appendChild(li);
         }
     });
@@ -126,9 +212,10 @@
     document.getElementById("sendButton").addEventListener("click", function (event) {
         debugger;
         var classId = @ViewBag.classId;
-        var studentId=@ViewBag.userid;
+        var studentId =@ViewBag.userid;
+        var studentName="@ViewBag.username";
         var message = document.getElementById("messageInput").value;
-        connection.invoke("SendMessage", classId, message, studentId).catch(function (err) {
+        connection.invoke("SendMessage", classId, message, studentId, studentName).catch(function (err) {
             return console.error(err.toString());
         });
         event.preventDefault();

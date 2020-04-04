@@ -47,6 +47,8 @@ namespace KSA.LinkedAcademia.Models
             modelBuilder.Entity<Chat>(entity =>
             {
                 entity.Property(e => e.MessageDateTime).HasColumnType("datetime");
+
+                entity.Property(e => e.SenderName).HasMaxLength(200);
             });
 
             modelBuilder.Entity<Class>(entity =>

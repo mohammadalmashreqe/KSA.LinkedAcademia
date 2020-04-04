@@ -39,7 +39,8 @@ namespace KSA.LinkedAcademia.Controllers
                 _context.SaveChanges();
             }
             ViewBag.classId = id;
-
+            var classname=_context.Class.Select(x => x).Where(x => x.Id == id).FirstOrDefault().Name;
+            HttpContext.Session.SetString("ClassName", classname);
             HttpContext.Session.SetInt32("classid", id);
             var messages = from x in _context.Chat
                            where x.ClassId == id

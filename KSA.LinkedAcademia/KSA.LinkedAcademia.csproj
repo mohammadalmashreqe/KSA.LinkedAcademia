@@ -12,6 +12,12 @@
   <ItemGroup>
     <None Include="wwwroot\js\signalr\dist\browser\signalr.js" />
     <None Include="wwwroot\js\signalr\dist\browser\signalr.min.js" />
+    <None Include="wwwroot\webfonts\fa-brands-400.svg" />
+    <None Include="wwwroot\webfonts\fa-brands-400.woff2" />
+    <None Include="wwwroot\webfonts\fa-regular-400.svg" />
+    <None Include="wwwroot\webfonts\fa-regular-400.woff2" />
+    <None Include="wwwroot\webfonts\fa-solid-900.svg" />
+    <None Include="wwwroot\webfonts\fa-solid-900.woff2" />
   </ItemGroup>
 
   <ItemGroup>
