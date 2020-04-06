@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using KSA.LinkedAcademia.Hubs;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace KSA.LinkedAcademia
 {
@@ -30,7 +32,7 @@ namespace KSA.LinkedAcademia
 
             services.Configure<CookiePolicyOptions>(options =>
             {
-               
+
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
@@ -38,7 +40,9 @@ namespace KSA.LinkedAcademia
 
 
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-
+            services.AddSingleton<IFileProvider>(new PhysicalFileProvider(
+                 Path.Combine(Directory.GetCurrentDirectory(), "wwwroot")));
+            services.AddMvc();
             services.AddSession();
             services.AddSignalR();
 
@@ -75,13 +79,13 @@ namespace KSA.LinkedAcademia
             app.UseSession();
             app.UseMvc(routes =>
             {
-                
+
                 routes.MapRoute(
                     name: "default",
-                    
+
                     template: "{controller=Account}/{action=Index}/{id?}");
             });
-         
+
 
         }
     }

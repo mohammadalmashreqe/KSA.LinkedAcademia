@@ -9,6 +9,7 @@ namespace KSA.LinkedAcademia.Models
         {
             Class = new HashSet<Class>();
             ClassStudents = new HashSet<ClassStudents>();
+            FileStorage = new HashSet<FileStorage>();
         }
 
         public int Id { get; set; }
@@ -22,5 +23,6 @@ namespace KSA.LinkedAcademia.Models
         public University University { get; set; }
         public ICollection<Class> Class { get; set; }
         public ICollection<ClassStudents> ClassStudents { get; set; }
+        public ICollection<FileStorage> FileStorage { get; set; }
     }
 }

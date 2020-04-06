@@ -1,0 +1,36 @@
+﻿@model KSA.LinkedAcademia.Models.FileStorage
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Uploade File</h2>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+
+        <form method="post" enctype="multipart/form-data" asp-action="create">
+           
+
+            <div class="form-group">
+                
+                    <p>Upload file:</p>
+                    <input class="btn btn-info" type="file" name="files"  />
+                
+            </div>
+
+
+
+            <div class="form-group">
+                <div class="col-md-10">
+                    <input class="btn btn-info" type="submit" value="Upload" />
+                </div>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+
+

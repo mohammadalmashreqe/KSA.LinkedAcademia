@@ -19,6 +19,7 @@ namespace KSA.LinkedAcademia.Models
         public virtual DbSet<Chat> Chat { get; set; }
         public virtual DbSet<Class> Class { get; set; }
         public virtual DbSet<ClassStudents> ClassStudents { get; set; }
+        public virtual DbSet<FileStorage> FileStorage { get; set; }
         public virtual DbSet<Student> Student { get; set; }
         public virtual DbSet<University> University { get; set; }
 
@@ -79,6 +80,21 @@ namespace KSA.LinkedAcademia.Models
                     .WithMany(p => p.ClassStudents)
                     .HasForeignKey(d => d.StudentId)
                     .HasConstraintName("FK_ClassStudents_Student");
+            });
+
+            modelBuilder.Entity<FileStorage>(entity =>
+            {
+                entity.Property(e => e.Path).IsUnicode(false);
+
+                entity.HasOne(d => d.Class)
+                    .WithMany(p => p.FileStorage)
+                    .HasForeignKey(d => d.ClassId)
+                    .HasConstraintName("FK_FileStorage_Class");
+
+                entity.HasOne(d => d.Student)
+                    .WithMany(p => p.FileStorage)
+                    .HasForeignKey(d => d.StudentId)
+                    .HasConstraintName("FK_FileStorage_Student");
             });
 
             modelBuilder.Entity<Student>(entity =>
