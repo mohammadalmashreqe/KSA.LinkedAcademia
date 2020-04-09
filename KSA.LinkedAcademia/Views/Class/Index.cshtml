@@ -25,23 +25,26 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Creator.Fname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Univirsety.Name)
-            </td>
-            <td>
-              
-                <a asp-action="Join" asp-controller="ClassStudents" asp-route-id="@item.Id">Join </a> 
-      
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Creator.Fname)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Univirsety.Name)
+                </td>
+                <td>
+
+                    <a asp-action="Join" asp-controller="ClassStudents" asp-route-id="@item.Id">Join </a>
+
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
+<br /><br /><br />
+<br />

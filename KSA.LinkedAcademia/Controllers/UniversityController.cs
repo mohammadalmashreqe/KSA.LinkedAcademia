@@ -50,6 +50,7 @@ namespace KSA.LinkedAcademia.Controllers
                     Name = collection.Name,
 
                 };
+              
                 _context.Add(u);
                 await _context.SaveChangesAsync();
 

@@ -87,7 +87,7 @@ namespace KSA.LinkedAcademia.Controllers
         public IActionResult Logout()
         {
             HttpContext.Session.Clear();
-            return View("Login");
+            return RedirectToAction("index","Home");
         }
     }
 }
