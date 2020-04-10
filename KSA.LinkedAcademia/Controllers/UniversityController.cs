@@ -51,8 +51,19 @@ namespace KSA.LinkedAcademia.Controllers
 
                 };
               
-                _context.Add(u);
+              var un=  _context.Add(u).Entity;
+
+                Class cl = new Class
+                {
+                    Name = collection.Name,
+                    UnivirsetyId = un.Id,
+
+
+                };
+                _context.Add(cl);
+
                 await _context.SaveChangesAsync();
+
 
                 return RedirectToAction(nameof(Index));
             }

@@ -22,7 +22,7 @@ namespace KSA.LinkedAcademia.Controllers
         {
             return View();
         }
-        public async Task<ActionResult> Download ( string filename)
+        public async Task<ActionResult> Download(string filename)
         {
 
             if (filename == null)
@@ -40,7 +40,7 @@ namespace KSA.LinkedAcademia.Controllers
             memory.Position = 0;
             return File(memory, GetContentType(path), Path.GetFileName(path));
         }
-       
+
         public ActionResult Join(int id)
         {
 
@@ -59,7 +59,7 @@ namespace KSA.LinkedAcademia.Controllers
                 _context.SaveChanges();
             }
             ViewBag.classId = id;
-            var classname=_context.Class.Select(x => x).Where(x => x.Id == id).FirstOrDefault().Name;
+            var classname = _context.Class.Select(x => x).Where(x => x.Id == id).FirstOrDefault().Name;
             HttpContext.Session.SetString("ClassName", classname);
             HttpContext.Session.SetInt32("classid", id);
             var messages = from x in _context.Chat
@@ -73,19 +73,23 @@ namespace KSA.LinkedAcademia.Controllers
             var cid = from x in _context.Class
                       where x.Id == id
                       select x.CreatorId;
+
             JoinViewModel joinViewModel = new JoinViewModel
             {
                 Chats = messages.ToList(),
                 FileStorages = files.ToList()
-                ,CreatorId=cid.FirstOrDefault().Value
-            };
-            return View(joinViewModel);
+                ,
+                CreatorId = cid.FirstOrDefault().HasValue ? cid.FirstOrDefault().Value : 0
+
+                };
+                return View(joinViewModel);
             
-          
+        
+
         }
-  
-            // GET: ClassStudents/Details/5
-            public ActionResult Details(int id)
+
+        // GET: ClassStudents/Details/5
+        public ActionResult Details(int id)
         {
             return View();
         }

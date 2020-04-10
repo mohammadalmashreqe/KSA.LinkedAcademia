@@ -51,10 +51,10 @@
 
     <div class="container-fluid chat-container">
         <div class="row h-100">
-            <div class="col-3 border-chat-lightgray px-0" id="sidebar">
+            <div class="col-3 border-chat-lightgray px-0" id="sidebar" style="display: none;">
                 <div id="sidebar-content" class="w-100 h-100">
                     <div class="input-group p-0 d-xs-none" id="search-group">
-                        @if (Model.CreatorId == ViewBag.userId)
+                        @if (Model.CreatorId !=0 && Model.CreatorId == ViewBag.userId)
                         {
                             <span class="input-group-addon">
                                 <a asp-action="create" asp-controller="FileStorage" class="btn border-0 bg-white text-primary hover-color-darkblue" >
@@ -67,7 +67,7 @@
                     <div class="sidebar-scroll" id="list-group">
                         @*file browser *@
                         <ul class="list-group w-100" id="friend-list">
-                            @if (Model.FileStorages != null)
+                            @if (Model.FileStorages != null &&Model.FileStorages.Count>0)
                             {
                                 @foreach (var item in Model.FileStorages)
                                 {
@@ -83,7 +83,7 @@
                             {
                                 <li class="list-group-item p-1 active hover-bg-lightgray">
                                     <img src="//placehold.it/50x50" class="rounded-circle">
-                                    <span class="d-xs-none username">No file uploded yet</span>
+                                    <span class="d-xs-none username" style="color:darkred">No files uploded yet</span>
                                 </li>
                             }
                         </ul>
