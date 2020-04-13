@@ -59,7 +59,7 @@ namespace KSA.LinkedAcademia.Controllers
                     _context.SaveChanges();
 
 
-                    return RedirectToAction("details", new { id = cls.Id });
+                    return RedirectToAction("Join","ClassStudents",new { id = cls.Id });
                 }
                 else
                     return View("Error");
@@ -75,7 +75,12 @@ namespace KSA.LinkedAcademia.Controllers
 
 
 
-
+        // GET: Class/Details/5
+        public ActionResult Details(int id)
+        {
+            var cls = _context.Class.Select(x => x).Where(x => x.Id == id).FirstOrDefault();
+            return View(cls);
+        }
 
 
         // GET: Class/Delete/5

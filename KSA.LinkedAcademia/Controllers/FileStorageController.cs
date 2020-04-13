@@ -85,8 +85,9 @@ namespace KSA.LinkedAcademia.Controllers
 
                 // process uploaded files
                 // Don't rely on or trust the FileName property without validation.
-                return RedirectToAction(nameof(Index), new { id = HttpContext.Session.GetInt32("userId") });
-
+                ViewBag.Message = "file uploaded";
+                // return RedirectToAction(nameof(Index), new { id = HttpContext.Session.GetInt32("userId") });
+                return View("Create");
             }
             catch
             {

@@ -1,9 +1,19 @@
 ﻿@model KSA.LinkedAcademia.Models.FileStorage
-
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
 @{
     ViewData["Title"] = "Create";
 }
+@if (ViewBag.classId == null)
+{
+    ViewBag.classId = @HttpContextAccessor.HttpContext.Session.GetInt32("classid");
+}
+@if (ViewBag.userid == null)
+{
 
+
+    ViewBag.userId = @HttpContextAccessor.HttpContext.Session.GetInt32("userId");
+}
 <h2>Uploade File</h2>
 
 <hr />
@@ -11,26 +21,48 @@
     <div class="col-md-4">
 
         <form method="post" enctype="multipart/form-data" asp-action="create">
-           
+
 
             <div class="form-group">
-                
-                    <p>Upload file:</p>
-                    <input class="btn btn-info" type="file" name="files"  />
-                
+
+
+                <input class="btn btn-info" type="file" name="files" />
+
             </div>
 
 
 
             <div class="form-group">
                 <div class="col-md-10">
-                    <input class="btn btn-info" type="submit" value="Upload" />
-                </div>
+                    <input class="btn btn-info" type="submit" value="Upload" /> 
+                    @if (ViewBag.Message != null)
+                    {
+                        <p style="color:green">@ViewBag.Message</p>
+                    }
+                </div>  
+               
             </div>
-        </form>
+        
 
+        </form>
     </div>
+
+</div>
+<div class="form-group" style="margin-top:10px;">
+    
+    <div><a asp-action="Join" asp-controller="ClassStudents" asp-route-id="@ViewBag.classId"> <i class="fas fa-arrow-left"></i> Back to chat </a></div>
+    <div><a asp-action="Index" asp-route-id="@ViewBag.userId">Back To Your File List</a></div>
 </div>
 
-
-
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />

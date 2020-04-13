@@ -4,10 +4,21 @@
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2 style="font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 1px;
+    display: inline-block;
+    border-radius: 50px;
+    transition: 0.5s;
+   
+    border: 2px solid #fff;
+    ">
+    Class List
+</h2>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create"> <i style="margin-right:4px" class="fas fa-plus"></i>Create New Class</a>
 </p>
 <table class="table">
     <thead>
@@ -39,7 +50,7 @@
                 </td>
                 <td>
 
-                    <a asp-action="Join" asp-controller="ClassStudents" asp-route-id="@item.Id">Join </a>
+                    <a asp-action="Join" asp-controller="ClassStudents" asp-route-id="@item.Id"><i class="fas fa-user-plus"></i> Join </a>
 
                 </td>
             </tr>
