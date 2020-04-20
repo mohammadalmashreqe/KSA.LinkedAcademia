@@ -57,7 +57,13 @@
                     {
                         <li><a asp-area="" asp-controller="Student" asp-action="Home">Home</a></li>
                     }
+                    else if (HttpContextAccessor.HttpContext.Session.GetString("Isadmin") != null)
+                    {
+                        <li><a asp-area="" asp-controller="Admin" asp-action="Home">Home</a></li>
+
+                    }
                     else
+
                     {
                         <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
 
@@ -72,6 +78,10 @@
                         <li> <a> Hello @HttpContextAccessor.HttpContext.Session.GetString("StudentName")</a></li>
                         <li><a asp-area="" asp-controller="Account" asp-action="Logout">Logout</a></li>
 
+                    }
+                    else if (HttpContextAccessor.HttpContext.Session.GetString("Isadmin") != null)
+                    {
+                        <li><a asp-area="" asp-controller="Admin" asp-action="Logout">Logout</a></li>
                     }
                     else
                     {

@@ -21,7 +21,15 @@ namespace KSA.LinkedAcademia.Controllers
         {
             return View();
         }
-
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("index", "Home");
+        }
+        public ActionResult Home()
+        {
+            return View("HomeAdmin");
+        }
         [HttpPost]
         public async Task<ActionResult> Login(Admin model)
         {
@@ -34,14 +42,17 @@ namespace KSA.LinkedAcademia.Controllers
                     ModelState.AddModelError("Password", "Invalid login attempt.");
                     return View("Index");
                 }
-              
+                HttpContext.Session.SetString("Isadmin", userdetails.UserName);
+
 
             }
             else
             {
                 return View("Index");
             }
+
             return View("HomeAdmin");
+
         }
     }
 }

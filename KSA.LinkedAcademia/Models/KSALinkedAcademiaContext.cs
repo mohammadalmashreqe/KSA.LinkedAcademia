@@ -59,6 +59,7 @@ namespace KSA.LinkedAcademia.Models
                 entity.HasOne(d => d.Creator)
                     .WithMany(p => p.Class)
                     .HasForeignKey(d => d.CreatorId)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK_Class_Student");
 
                 entity.HasOne(d => d.Univirsety)
@@ -79,6 +80,7 @@ namespace KSA.LinkedAcademia.Models
                 entity.HasOne(d => d.Student)
                     .WithMany(p => p.ClassStudents)
                     .HasForeignKey(d => d.StudentId)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK_ClassStudents_Student");
             });
 
@@ -118,6 +120,7 @@ namespace KSA.LinkedAcademia.Models
                 entity.HasOne(d => d.University)
                     .WithMany(p => p.Student)
                     .HasForeignKey(d => d.UniversityId)
+                    .OnDelete(DeleteBehavior.SetNull)
                     .HasConstraintName("FK_Student_University");
             });
 

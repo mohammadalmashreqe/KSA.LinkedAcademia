@@ -86,17 +86,18 @@ namespace KSA.LinkedAcademia.Controllers
         // POST: Student/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Delete(int id, IFormCollection collection)
+        public async Task<ActionResult> Delete(int id, Student student)
         {
             try
             {
-                var st = await _context.Student.SingleOrDefaultAsync(m => m.Id == id);
+                var st = await _context.Student.SingleOrDefaultAsync(m => m.Id == student.Id);
+
                 _context.Student.Remove(st);
                 _context.SaveChanges();
                 return RedirectToAction(nameof(Index));
 
             }
-            catch
+            catch (Exception ex)
             {
                 return View();
             }
